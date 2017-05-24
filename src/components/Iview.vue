@@ -2,6 +2,7 @@
     <div>
         <h1>{{msg}}</h1>
         <div style="position: absolute;width:100%;">
+            <!-- fixed随滚动条滚动，需要给父元素加定位 -->
             <Tooltip content="这里是提示文字">
                 当鼠标经过这段文字时，会显示一个气泡框
             </Tooltip>

@@ -10,6 +10,9 @@ from 'vuex-router-sync'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
+// 兼容IE es6
+import "babel-polyfill"
+
 Vue.use(Router)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
