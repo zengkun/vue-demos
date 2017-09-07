@@ -1,3 +1,6 @@
+// 兼容IE es6
+import "babel-polyfill"
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import Vuex from 'vuex';
@@ -9,9 +12,6 @@ import {
 from 'vuex-router-sync'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-
-// 兼容IE es6
-import "babel-polyfill"
 
 Vue.use(Router)
 Vue.use(Vuex)
@@ -63,6 +63,20 @@ router.afterEach((to, from, next) => {
 
 // vue-router 的状态放进 vuex 的 state
 sync(store, router)
+
+// 注册一个全局自定义指令 v-number-only 只能输入数字
+// <input v-model="number" v-number-only />
+Vue.directive('numberOnly', {
+    bind: function (el) {
+        el._numberOnlyHandler = function () {
+            el.value = el.value.replace(/\D+/, '')
+        }
+        el.addEventListener('input', el._numberOnlyHandler)
+    },
+    unbind: function (el) {
+        el.removeEventListener('input', el._numberOnlyHandler)
+    }
+})
 
 const app = new Vue({
 	store,

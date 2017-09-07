@@ -8,6 +8,25 @@
     </div>
 </template>
 <script>
+
+
+/*axios({
+  method: 'post',
+  url: '',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  data: {
+    username:'',
+    password:''
+  }
+}).then(function (response) {
+  alert(JSON.stringify(response.data));
+}).catch(function (error) {
+  alert(error);
+});*/
+
+
 export default {
     data() {
             return {
