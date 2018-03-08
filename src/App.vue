@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <yd-button type="primary">primary</yd-button>
+        <yd-datetime style="border:1px solid #ccc;border-radius:3px;padding:5px;" v-model="datetime0"></yd-datetime>
+
         <img class="logo" src="./assets/logo.png"><br>
         Router Path -- {{$store.state.route.path}}
         <div class="nav">
@@ -21,10 +24,21 @@
     </div>
 </template>
 <script>
+// import './assets/test.scss';
+
 export default {
-    name: 'app'
+ name: 'app',
+    data() {
+            return {
+                datetime0: ''
+            }
+        }
 }
 </script>
+<style lang="scss">
+// @import './assets/test.scss';
+// @import './assets/test';
+</style>
 <style>
 .fade-enter-active,
 .fade-leave-active {

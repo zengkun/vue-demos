@@ -1,7 +1,9 @@
 <template>
     <div>
         <Button type="primary" @click="info">显示普通提醒</Button>
-        <anchored-heading :level='1'>标题</anchored-heading>
+        <anchored-heading :level="3">标题，
+            <slot>我是slot</slot>
+        </anchored-heading>
     </div>
 </template>
 <script>
@@ -29,7 +31,14 @@ export default {
             this.$Message.info('这是一条普通的提醒');
         }
     },
-   	// 方式2，注册局部组件（render函数）
+    mounted() {
+        this.$alert({
+            title: 'alert-test'
+        });
+
+        this.$log('consoleLog for Vue prototype~')
+    },
+    // 方式2，注册局部组件（render函数） 
     components: {
         'anchored-heading': {
             render: function(createElement) {
@@ -38,5 +47,14 @@ export default {
                     this.$slots.default // 子组件中的阵列
                 )
             },
+            props: {
+                level: {
+                    type: Number,
+                    required: true
+                }
+            }
         }
+    }
+}
+
 </script>

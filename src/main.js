@@ -13,6 +13,22 @@ from 'vuex-router-sync'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
+import AlertHonor from '@/components/Alert'
+
+// vue-ydui组件 http://vue.ydui.org/
+import {
+	Button,
+	ButtonGroup
+} from 'vue-ydui/dist/lib.px/button';
+import {
+	DateTime
+} from 'vue-ydui/dist/lib.rem/datetime';
+import 'vue-ydui/dist/ydui.base.css';
+
+Vue.component(Button.name, Button);
+Vue.component(ButtonGroup.name, ButtonGroup);
+Vue.component(DateTime.name, DateTime);
+
 Vue.use(Router)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
@@ -40,7 +56,7 @@ axios.defaults.timeout = 15000;
 // 修正ie9不支持window.performance.now();
 try {
 	window.performance.now();
-} catch (error) {
+} catch(error) {
 	window.performance = window.Date;
 }
 
@@ -67,16 +83,35 @@ sync(store, router)
 // 注册一个全局自定义指令 v-number-only 只能输入数字
 // <input v-model="number" v-number-only />
 Vue.directive('numberOnly', {
-    bind: function (el) {
-        el._numberOnlyHandler = function () {
-            el.value = el.value.replace(/\D+/, '')
-        }
-        el.addEventListener('input', el._numberOnlyHandler)
-    },
-    unbind: function (el) {
-        el.removeEventListener('input', el._numberOnlyHandler)
-    }
+	bind: function(el) {
+		el._numberOnlyHandler = function() {
+			el.value = el.value.replace(/\D+/, '')
+		}
+		el.addEventListener('input', el._numberOnlyHandler)
+	},
+	unbind: function(el) {
+		el.removeEventListener('input', el._numberOnlyHandler)
+	}
 })
+
+// Alert组件
+// http://blog.csdn.net/iceking66/article/details/78296928
+// http://blog.csdn.net/iceking66/article/details/78297987
+// https://www.zhihu.com/question/64744420/answer/231692743
+AlertHonor({
+	img: 'https://vuejs.org/images/logo.png',
+	title: '拜访达人',
+	ranking: '您在全国排名第99',
+	share: function() {
+		alert('您点击了分享~~~')
+	}
+});
+// 或者直接挂载到示例，Test.vue里面直接this.$alert(...)
+Vue.prototype.$alert = AlertHonor;
+
+Vue.prototype.$log = (msg) => {
+	console.log('$log:', msg);
+};
 
 const app = new Vue({
 	store,
