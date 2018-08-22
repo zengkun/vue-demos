@@ -8,6 +8,37 @@
     </div>
 </template>
 <script>
+// 在Vue中
+// v-for in === v-for of
+
+
+// 原生js
+// for-in可以遍历数组或者对象,item是key值
+// for-of只能遍历数组,item是value值（若是obj [object Object] is not iterable!）
+let objTest = {
+    a: 1,
+    b: 2
+}
+
+let objTest2 = [{
+    a: 1
+}, {
+    a: 2
+}]
+
+for(var item in objTest) {
+    console.log(item, 'for-in{}');
+}
+for(var item in objTest2) {
+    console.log(item, 'for-in[]');
+}
+
+// for(var item of objTest) {
+//     console.log(item, 'for-of{}'); // [object Object] is not iterable!）
+// }
+for(var item of objTest2) {
+    console.log(item, 'for-of[]');
+}
 
 
 /*axios({
@@ -29,34 +60,35 @@
 
 export default {
     data() {
-            return {
-                channelList: []
-            }
-        },
-        methods: {
-            changeChannel() {
-                this.$http({
-                        method: 'get',
-                        url: 'tvlb',
-                        params: {
-                            tv_type: 0
-                        }
-                    })
-                    .then((res) => {
-                        if (res.status) {
-                            this.channelList = res.data.data;
-                            this.$Message.success('请求成功');
-                        }
-                    })
-                    .catch((err) => {
-                        console.log("响应超时")
-                    })
-            }
-        },
-        mounted: function() {
-            this.changeChannel();
+        return {
+            channelList: []
         }
+    },
+    methods: {
+        changeChannel() {
+            this.$http({
+                    method: 'get',
+                    url: 'tvlb',
+                    params: {
+                        tv_type: 0
+                    }
+                })
+                .then((res) => {
+                    if(res.status) {
+                        this.channelList = res.data.data;
+                        this.$Message.success('请求成功');
+                    }
+                })
+                .catch((err) => {
+                    console.log("响应超时")
+                })
+        }
+    },
+    mounted: function() {
+        this.changeChannel();
+    }
 }
+
 </script>
 <style scoped>
 .list {
@@ -64,4 +96,5 @@ export default {
     border-right: 2px solid #999;
     padding: 5px;
 }
+
 </style>
